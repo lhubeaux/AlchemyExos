@@ -2,7 +2,7 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 
 # Import de notre Base et mes modèles
-from dal.models.base import Base
+from Demo.dal.models.base import Base
 # from dal.models import 
 
 

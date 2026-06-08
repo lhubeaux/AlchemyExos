@@ -1,6 +1,6 @@
 
-from dal.models import Jeu, DetailJeu
-from dal.database import get_session, init_db, test_connexion
+from Demo.dal.models import Jeu, DetailJeu
+from Demo.dal.database import get_session, init_db, test_connexion
 
 
 def main():
