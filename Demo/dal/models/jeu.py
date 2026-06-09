@@ -14,7 +14,7 @@ class Jeu(Base):
 
 	# Relation 1 : One To One avec DetailsJeu
 	# useList => Pour préciser que nous sommes en 1:1 et non en 1:N
-	details = relationship("DetailJeu", back_populates="jeu", uselist=False)
+	details = relationship("DetailJeu", back_populates="jeu", uselist=False, cascade="all, delete-orphan")
 
 	# One-to-many : inverse
 	developpeur = relationship("Developpeur", back_populates="jeux")

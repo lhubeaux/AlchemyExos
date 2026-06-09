@@ -1,12 +1,10 @@
-<<<<<<< HEAD:Demo/demo_orm.py
-
-from Demo.dal.models import Jeu, DetailJeu
-from Demo.dal.database import get_session, init_db, test_connexion
-=======
-from datetime import date
+from dal.models import Jeu, DetailJeu
+from dal.database import get_session, init_db, test_connexion
+from datetime import *
 from decimal import Decimal
 from dal.models import Jeu, DetailJeu
 from sqlalchemy.orm import joinedload
+from sqlalchemy import select, update
 from dal.database import get_session, init_db, test_connexion
 from dal.models import Developpeur, Jeu, DetailJeu, Plateforme
 
@@ -58,14 +56,40 @@ def lire_jeux(session):
 		print(f"   => Platforme(s)		: {[p.nom for p in jeu.plateformes]}")
 
 def creer_jeux(session):
-	pass
+
+		#création d'un dev
+	fromsoft = Developpeur(
+		nom="Fromsoft",
+		pays="Japon"
+	)
+	session.add(fromsoft)
+	session.flush()
+
+
+	titre = input("Veuillez entrez le nom du jeu :\n")
+	date_sortie = input("Veuillez entrer la date de sortie du jeu (format: AAAA-MM-DD): \n")
+	date = datetime.strptime(date_sortie, "%Y-%m-%d")
+	prix = Decimal(input("Veuillez entrer le prix du jeu : \n"))
+	dev = fromsoft
+	
+	jeu_cree = Jeu(titre=titre, date_sortie=date, prix=prix, developpeur = dev)
+
+	jeu_cree.details = DetailJeu(description = "Jeu soulslike",note_metacritic = 18, multijoueur = True)
+
+
+	session.add(jeu_cree)
+	session.commit()
+
 
 def mettre_a_jour(session):
-	pass
+	upd = session.execute(select(Jeu).filter_by(titre="Pokemon")).scalar_one()
+	upd.titre = "Pokemon Ruby"
+	session.commit()
 
 def supprimer(session):
-	pass
->>>>>>> 3df71b42bd178f0b0ea8269a987e884b621cb86e:demo_orm.py
+	to_delete = session.execute(select(Jeu).filter_by(titre="Pokemon Ruby")).scalar_one()
+	session.delete(to_delete)
+	session.commit()
 
 
 def main():
@@ -90,7 +114,7 @@ def main():
 		print("[0] Quitter")
 		print( "*" * 30)
 
-		choix = int(input("\nVotre choix :"))
+		choix = int(input("\nVotre choix :\n"))
 
 		if choix == 1:
 			lire_jeux(session)

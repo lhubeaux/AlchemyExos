@@ -3,15 +3,13 @@ from sqlalchemy.orm import sessionmaker
 
 
 # Import de notre Base et mes modèles
-<<<<<<< HEAD:Demo/dal/database.py
-from Demo.dal.models.base import Base
-# from dal.models import 
-=======
 from dal.models.base import Base
->>>>>>> 3df71b42bd178f0b0ea8269a987e884b621cb86e:dal/database.py
+# from dal.models import 
+from dal.models.base import Base
 
 
-SERVER = r"PC-BSTORM\MSSQLSERVER01"
+
+SERVER = r"GOSVDI208\TFTIC"
 DATABASE = "JeuxVideoDemo"
 
 CONNECTION_STRING = (
