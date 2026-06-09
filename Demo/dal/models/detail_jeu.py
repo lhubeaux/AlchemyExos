@@ -13,4 +13,4 @@ class DetailJeu(Base):
 	multijoueur = Column(Boolean, default=False)
 
 	# Relation inverse One-to-One
-	jeu =  relationship("Jeu", back_populates="details")
+	jeu = relationship("Jeu", back_populates="details")
