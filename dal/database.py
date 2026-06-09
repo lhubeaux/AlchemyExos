@@ -1,9 +1,9 @@
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 
+
 # Import de notre Base et mes modèles
 from dal.models.base import Base
-# from dal.models import 
 
 
 SERVER = r"PC-BSTORM\MSSQLSERVER01"
@@ -16,7 +16,7 @@ CONNECTION_STRING = (
 	"&TrustServerCertificate=yes"
 )
 
-engine = create_engine(CONNECTION_STRING, echo=True)
+engine = create_engine(CONNECTION_STRING, echo=False)
 
 session_local = sessionmaker(autocommit=False ,autoflush=False ,bind=engine)
 

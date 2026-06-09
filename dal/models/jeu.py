@@ -10,7 +10,15 @@ class Jeu(Base):
 	date_sortie = Column(Date)
 	prix = Column(DECIMAL(10,2))
 
+	developpeur_id = Column(Integer, ForeignKey("developpeurs.developpeur_id"), nullable=False)
 
 	# Relation 1 : One To One avec DetailsJeu
 	# useList => Pour préciser que nous sommes en 1:1 et non en 1:N
 	details = relationship("DetailJeu", back_populates="jeu", uselist=False)
+
+	# One-to-many : inverse
+	developpeur = relationship("Developpeur", back_populates="jeux")
+
+	plateformes = relationship("Plateforme", secondary="jeux_plateformes", back_populates="jeux")
+
+	# plateformes

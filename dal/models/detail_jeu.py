@@ -8,7 +8,7 @@ class DetailJeu(Base):
 	# La clé primaire est aussi une clé étrangère => on force le 1:1
 	jeu_id = Column(Integer, ForeignKey("jeux.jeu_id"), primary_key=True)
 
-	deescription = Column(Text)
+	description = Column(Text)
 	note_metacritic = Column(Integer)
 	multijoueur = Column(Boolean, default=False)
 
