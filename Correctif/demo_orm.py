@@ -1,3 +1,13 @@
+from dal.models import Jeu, DetailJeu
+from dal.database import get_session, init_db, test_connexion
+from datetime import *
+from decimal import Decimal
+from dal.models import Jeu, DetailJeu
+from sqlalchemy.orm import joinedload
+from sqlalchemy import select, update
+from dal.database import get_session, init_db, test_connexion
+from dal.models import Developpeur, Jeu, DetailJeu, Plateforme
+
 def creer_jeux(session):
     """
     Fonction pour créer un nouveau jeu de manière interactive.
@@ -74,6 +84,21 @@ def creer_jeux(session):
     session.add(nouveau_jeu)
     session.commit()
     print(f"\n✅ Jeu '{titre}' créé avec succès ! (ID: {nouveau_jeu.jeu_id})")
+
+def lire_jeux(session):
+	jeux =	session.query(Jeu).options(
+		joinedload(Jeu.developpeur),
+		joinedload(Jeu.details),
+		joinedload(Jeu.plateformes)
+	).all()
+
+	for jeu in jeux:
+		print(f"\n {jeu.titre} (ID:{jeu.jeu_id})")
+		print(f"   => Développeur		: {jeu.developpeur.nom if jeu.developpeur else 'N/A'}")
+		print(f"   => Prix				: {jeu.prix} €")
+		print(f"   => Note Metacritic	: {jeu.details.note_metacritic}/20")
+		print(f"   => Platforme(s)		: {[p.nom for p in jeu.plateformes]}")
+
 
 
 def mettre_a_jour(session):
